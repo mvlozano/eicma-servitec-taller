@@ -1,13 +1,15 @@
+const { response } = require('express');
+
 const Pool = require('pg').Pool;
 const pool = new Pool({
-  user: 'me',
+  user: 'postgres',
   host: 'localhost',
-  database: 'api2',
-  password: '12345',
+  database: 'servitec_controltoner_2022',
+  password: 'RyuK6699.cu',
   port: 5432,
 });
-const getUsers = (request, response) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+const getInformeExistenciaRealTaller = (request, response) => {
+  pool.query('SELECT * from get_existencia_en_taller()', (error, results) => {
     if (error) {
       throw error;
     }
@@ -15,10 +17,20 @@ const getUsers = (request, response) => {
   });
 };
 
+const postEntradaEquipoTalller=(request,response) =>{
+  console.log
+  pool.query('SELECT public.entrada_producto_taller()',(error, results)=>{
+    if (error) {
+      throw error;
+    }
+    response.status(200);
+  });
+};
+
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id);
 
-  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM lista_de_tecnicos WHERE idtecnico = $1', [id], (error, results) => {
     if (error) {
       throw error;
     }
@@ -69,7 +81,7 @@ const deleteUser = (request, response) => {
 };
 
 module.exports = {
-  getUsers,
+  getInformeExistenciaRealTaller,
   getUserById,
   createUser,
   updateUser,

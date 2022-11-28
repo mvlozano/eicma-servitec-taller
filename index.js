@@ -16,7 +16,8 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' });
 });
 
-app.get('/users', db.getUsers);
+app.get('/existencia-taller', db.getInformeExistenciaRealTaller);
+//app.post('existencia-taller',db.);
 app.get('/users/:id', db.getUserById);
 app.post('/users', db.createUser);
 app.put('/users/:id', db.updateUser);
