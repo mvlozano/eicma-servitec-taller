@@ -11,7 +11,7 @@ const db = require('./queries');
 //middlewares
 app.use(helmet());
 app.use(morgan("common"));
-app.use(cors({ origin: ['localhost:*', '192.168.1.69:*'] }));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -28,7 +28,6 @@ app.get('/', (request, response) => {
 app.get('/servitec/equipos-por-cliente/:cliente', db.getInformeEquipoCliente);
 app.get('/servitec/equipos-entregados', db.getInformeEquiposEntregados);
 app.get('/servitec/equipos-entregados-fechas', db.getInformeEquiposEntregadosFechas);
-
 app.route('/servitec/existencia-taller').get(db.getInformeExistenciaRealTaller).post(db.postEntradaEquipoTalller).delete(db.deleteSalidaEquipoTaller);
 app.route('/servitec/clientes').get(db.getListaClientes).post(db.addCliente);
 app.route('/servitec/estados').get(db.getEstados).post(db.addEstado);
@@ -41,8 +40,6 @@ app.get('/users/:id', db.getUserById);
 app.post('/users', db.createUser);
 app.put('/users/:id', db.updateUser);
 app.delete('/users/:id', db.deleteUser);*/
-
-
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
