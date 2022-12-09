@@ -35,6 +35,7 @@ app.route('/servitec/estados').get(db.getEstados).post(db.addEstado);
 app.route('/servitec/productos').get(db.getListaProductos).post(db.addProducto);
 app.route('/servitec/tecnicos').get(db.getListaTecnicos).post(db.addTecnico);
 app.route('/servitec/tipo-servicio').get(db.getTipoServicio).post(db.addTipoServicio);
+app.route('servitec/descripciones').get(db.getDescripciones).post(db.addDescripcion);
 /*app.get('/servitec/existenciremote: Counting objects: 100% (42a-taller', db.getInformeExistenciaRealTaller);
 app.get('/users/:id', db.getUserById);
 app.post('/users', db.createUser);
