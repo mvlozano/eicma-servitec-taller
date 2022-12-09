@@ -14,6 +14,7 @@
     "axios": "^1.2.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "json-request-validator": "^1.0.6",
     "morgan": "^1.10.0",
     "pg": "^8.7.3"
   }
