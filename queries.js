@@ -23,38 +23,35 @@ const getInformeExistenciaRealTaller = (request, response, next) => {
 
 const postEntradaEquipoTalller = (request, response, next) => {
   console.log(request.body);
-  const { tecnico, idCliente, fecha_de_entrada, tipo_servicio, equipo, modelo, inventario, accesorios, trabajo_a_realizar, observaciones, telefono } = request.body;
+  const { tecnico, idcliente, fecha_de_entrada, tipo_servicio, equipo, modelo, inventario, accesorios, trabajo_a_realizar, observaciones, telefono } = request.body;
   pool.query(
     'SELECT public.entrada_producto_taller($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
-    [tecnico, idCliente, fecha_de_entrada, tipo_servicio, equipo, modelo, inventario, accesorios, trabajo_a_realizar, observaciones, telefono],
+    [tecnico, idcliente, fecha_de_entrada, tipo_servicio, equipo, modelo, inventario, accesorios, trabajo_a_realizar, observaciones, telefono],
     (error, results) => {
       if (error) {
         next(error);
       } else {
-        response.status(200);
+        response.status(200).json(results.rows);
       }
     });
 };
 
 
 const deleteSalidaEquipoTaller = (request, response, next) => {
-  const { id, modelo, trabajo_realizado, situacion, argumento, fecha_salida, nombrePersona_recoge, apellidoPersona_recoge, c_i } = request.body;
+  const { id, modelo, trabajo_realizado, situacion, argumento, fecha_salida, nombre_personaRecoge, apellido_personaRecoge, c_i } = request.body;
   pool.query('SELECT public.salida_producto_taller()',
-    [id, `${nombrePersona_recoge} ${apellidoPersona_recoge}`, c_i, trabajo_realizado, situacion, argumento, fecha_salida],
+    [id, `${nombre_personaRecoge} ${apellido_personaPecoge}`, c_i, trabajo_realizado, situacion, argumento, fecha_salida],
     (error, results) => {
       if (error) {
         next(error);
       } else {
-        response.status(200);
+        response.status(200).json(results.rows);
       }
     });
 };
 
 //Informes 
 const getInformeEquipoCliente = (request, response, next) => {
-  app.get('/servitec/equipos-por-cliente/:cliente', db.getInformeEquipoCliente);
-  app.get('/servitec/equipos-entregados', db.getInformeEquiposEntregados);
-  app.get('/servitec/equipos-entregados-fechas', db.getInformeEquiposEntregadosFechas);
   const cliente = request.params.cliente;
   pool.query('SELECT * from get_equipos_por_cliente_existencia($1)', [cliente], (error, results) => {
     if (error) {
@@ -102,15 +99,15 @@ const getListaClientes = (request, response, next) => {
   });
 };
 const addCliente = (request, response, next) => {
-  const { idCliente, nombre_cliente, direccion } = request.body;
+  const { idcliente, nombre_cliente, direccion } = request.body;
   pool.query(
     'SELECT * from public.add_cliente($1,$2,$3)',
-    [idCliente, nombre_cliente, direccion],
+    [idcliente, nombre_cliente, direccion],
     (error, results) => {
       if (error) {
         next(error);
       } else {
-        response.status(200);
+        response.status(200).json(results.rows);
       }
     });
 };
